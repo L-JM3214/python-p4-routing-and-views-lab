@@ -1,6 +1,5 @@
 import io
 import sys
-
 from app import app
 
 class TestApp:
@@ -74,3 +73,8 @@ class TestApp:
         '''finds remainder of parameters in "/math/" resource when operation is "%".'''
         response = app.test_client().get('/math/5/%/5')
         assert(response.data.decode() == '0')
+    
+    def test_math_invalid_operation(self):
+        '''returns "Invalid operation" for unsupported math operation.'''
+        response = app.test_client().get('/math/5/unsupported/5')
+        assert(response.data.decode() == 'Invalid operation')
